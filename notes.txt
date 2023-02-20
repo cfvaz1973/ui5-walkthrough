@@ -1,0 +1,61 @@
+1. Namespaces within a view
+===========================
+File 'App.view.xml'
+<mvc:View
+   xmlns="sap.m"  <-- default namespace where the majority of our UI assets are located
+   xmlns:mvc="sap.ui.core.mvc">  <-- additional sap.ui.core.mvc with alias mvc
+   <Text text="Hello World"/>
+</mvc:View>
+
+Note
+----
+The namespace identifies all resources of the project and has to be unique. 
+If you develop your own application code or controls, you cannot use the namespace prefix
+sap, because this namespace is reserved for SAP resources. Instead, simply define your own
+unique namespace (for example, myCompany.myApp).
+
+2. The "use strict" makes sure that variables are declared before they are used
+===============================================================================
+
+3. View and Controller
+======================
+The view may reference a Controller
+<mvc:View
+   controllerName="sap.ui.demo.walkthrough.controller.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <Button
+      text="Say Hello"
+      press=".onShowHello"/>
+</mvc:View>
+
+The controller:
+- carries the same name as the related view ( 1:1 relationship )
+- name will always end with *.controller.js
+- will be defined in it's own file by extending the Controller object
+- event handlers are prefixed with on
+sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
+  "use strict";
+  return Controller.extend("sap.ui.demo.walkthrough.controller.App", {
+    onShowHello: function () {
+      alert("Hello World");
+    },
+  });
+});
+
+4. Modules
+==========
+Resources are often referred as modules. The required modules are enabled
+to be loaded asynchronously in the controller code.
+
+sap.ui.define([
+   "sap/ui/core/mvc/Controller",
+   "sap/m/MessageToast" <-- new resource added
+], function (Controller, MessageToast) {
+   "use strict";
+   return Controller.extend("sap.ui.demo.walkthrough.controller.App", {
+      onShowHello : function () {
+         MessageToast.show("Hello World");
+      }
+   });
+});
