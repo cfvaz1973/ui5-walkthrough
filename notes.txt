@@ -1,5 +1,6 @@
-1. Namespaces within a view
-===========================
+===================================================================================
+= 1. Namespaces within a view
+===================================================================================
 File 'App.view.xml'
 <mvc:View
    xmlns="sap.m"  <-- default namespace where the majority of our UI assets are located
@@ -14,11 +15,13 @@ If you develop your own application code or controls, you cannot use the namespa
 sap, because this namespace is reserved for SAP resources. Instead, simply define your own
 unique namespace (for example, myCompany.myApp).
 
-2. The "use strict" makes sure that variables are declared before they are used
-===============================================================================
+===================================================================================
+= 2. The "use strict" makes sure that variables are declared before they are used
+===================================================================================
 
-3. View and Controller
-======================
+===================================================================================
+= 3. View and Controller
+===================================================================================
 The view may reference a Controller
 <mvc:View
    controllerName="sap.ui.demo.walkthrough.controller.App"
@@ -43,8 +46,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
   });
 });
 
-4. Modules
-==========
+===================================================================================
+= 4. Modules
+===================================================================================
 Resources are often referred as modules. The required modules are enabled
 to be loaded asynchronously in the controller code.
 
@@ -59,3 +63,9 @@ sap.ui.define([
       }
    });
 });
+
+Conventions
+Use sap.ui.define for controllers and all other JavaScript modules to define a global namespace. With the namespace, the object can be addressed throughout the application.
+Use sap.ui.require for asynchronously loading dependencies but without declaring a namespace, for example code that just needs to be executed, but does not need to be called from other code.
+Use the name of the artifact to load for naming the function parameters (without namespace).
+
